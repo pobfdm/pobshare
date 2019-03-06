@@ -1,0 +1,94 @@
+!include "MUI.nsh"
+ 
+;Richiedo i permessi di Amministratore
+RequestExecutionLevel admin
+ 
+; Il nome dell'installatore
+Name "Pobshare"
+ 
+;Icona del file dell'installatore
+!define MUI_ICON ./icons/pobshare.ico
+ 
+ 
+;Banner laterale
+;!define MUI_WELCOMEFINISHPAGE_BITMAP "banner.bmp" ;immagine per la pagina di benvenuto
+;!define MUI_HEADERIMAGE							  ;Usa immagine d'intestazione
+;!define MUI_HEADERIMAGE_BITMAP "../icon.png"		  ;immagine d'intestazione per le varie schermate	
+ 
+; Il nome del file dell'installatore
+OutFile "./build/Pobshare-installer.exe"
+ 
+;Le varie "pagine" da visualizzare (Benvenuto, licenza, scelta cartella,conclusione etc...)
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "gpl-3.0.txt"
+!insertmacro MUI_PAGE_DIRECTORY
+;!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+ 
+;Lingue nelle quali deve essere disponibile l'installer
+!insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "German"
+!insertmacro MUI_LANGUAGE "French"
+!insertmacro MUI_LANGUAGE "Italian"
+ 
+ 
+ 
+; La directory di installazione predefinita
+InstallDir $PROGRAMFILES\Pobshare
+ 
+; Del testo da mostrare al momento della scelta della directory
+;DirText "This will install Logout-fml on your computer. Choose a directory"
+ 
+;--------------------------------
+ 
+; La sezione dedicata all'installazione
+Section "Install" 
+ 
+	; Setto la directory dove mettere i file da questo momento in poi
+	; (se la directory non esiste, la creera') e copio i file.
+	SetOutPath $INSTDIR
+	File /r .\build\exe.win-amd64-3.7\*
+ 
+ 
+	;Menu start
+	CreateDirectory "$SMPROGRAMS\Pobshare"
+	CreateShortCut "$SMPROGRAMS\Pobshare\Pobshare.lnk" "$INSTDIR\pobshare.exe"
+	;CreateShortCut "$SMPROGRAMS\Pobshare\uninstall.lnk" "$INSTDIR\Uninstall.exe"
+ 
+	; Informiamo il compilatore che sara' presente una sezione per il disinstallatore  
+	WriteUninstaller $INSTDIR\Uninstall.exe
+	
+	            
+	
+SectionEnd 
+ 
+
+
+;Entry per Add/Remove
+!define REGUNINSTKEY "Pobshare" ;Using a GUID here is not a bad idea
+!define REGHKEY HKLM ;Assuming RequestExecutionLevel admin AKA all user/machine install
+!define REGPATH_WINUNINST "Software\Microsoft\Windows\CurrentVersion\Uninstall"
+
+Section
+	WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "DisplayName" "Pobshare"
+	WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "UninstallString" '"$INSTDIR\Uninstall.exe"'
+	
+	WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "DisplayIcon" '"$INSTDIR\icons\pobshare.ico"'
+	WriteRegStr ${REGHKEY} "${REGPATH_WINUNINST}\${REGUNINSTKEY}" "Publisher" "Fabio Di Matteo"
+SectionEnd 
+ 
+ 
+; La sezione dedicata alla disinstallazione
+Section "un.Uninstall"
+ 
+	;Rimuoviamo i file del programma
+	Delete $INSTDIR\*.*
+	RMDir /r $INSTDIR
+ 
+	; Rimuoviamo tutti i link dallo start menu
+	Delete "$SMPROGRAMS\Pobshare\Pobshare.lnk" 
+	Delete "$SMPROGRAMS\Pobshare\uninstall.lnk" 
+	RMDIR  "$SMPROGRAMS\Pobshare"
+	
+SectionEnd
