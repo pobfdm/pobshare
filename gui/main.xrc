@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object class="wxFrame" name="mainFrame">
+		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
+		<size>500,500</size>
+		<bg>#e8e8e7</bg>
+		<title>Pobshare</title>
+		<centered>1</centered>
+		<aui_managed>0</aui_managed>
+		<object class="wxMenuBar" name="menubar">
+			<label>MyMenuBar</label>
+			<object class="wxMenu" name="mnuFile">
+				<label>File</label>
+				<object class="wxMenuItem" name="mnuItemSettings">
+					<label>Settings</label>
+					<help></help>
+				</object>
+				<object class="wxMenuItem" name="mnuItemExit">
+					<label>Exit</label>
+					<help></help>
+				</object>
+			</object>
+		</object>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxBitmapButton" name="btStartStop">
+					<size>200,200</size>
+					<bitmap>../icons/small/pobshare-gray.png</bitmap>
+					<default>0</default>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxStaticText" name="lblUrl">
+					<label>Url to share:</label>
+					<wrap>-1</wrap>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxBoxSizer">
+					<orient>wxHORIZONTAL</orient>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxTextCtrl" name="txtUrl">
+							<style>wxTE_READONLY</style>
+							<font>
+								<style>normal</style>
+								<weight>bold</weight>
+								<underlined>0</underlined>
+							</font>
+							<value></value>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="btShareUrl">
+							<label></label>
+							<default>0</default>
+							<markup>0</markup>
+							<bitmap stock_id="wxART_COPY" stock_client="wxART_BUTTON">undefined.png</bitmap>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxListCtrl" name="listCtrlStatus">
+					<style>wxLC_REPORT</style>
+				</object>
+			</object>
+		</object>
+		<object class="wxStatusBar" name="statusBar">
+			<style>wxSTB_SIZEGRIP</style>
+			<fields>1</fields>
+		</object>
+	</object>
+	<object class="wxDialog" name="frmSettings">
+		<style>wxDEFAULT_DIALOG_STYLE</style>
+		<title></title>
+		<centered>1</centered>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxStaticBoxSizer">
+					<orient>wxVERTICAL</orient>
+					<label>General</label>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL</flag>
+						<border>5</border>
+						<object class="wxBoxSizer">
+							<orient>wxHORIZONTAL</orient>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxCheckBox" name="chkEnableAtStartup">
+									<label>Enable at startup</label>
+									<checked>0</checked>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxCheckBox" name="chkRunServerAtStart">
+									<label>Run server at start</label>
+									<checked>0</checked>
+								</object>
+							</object>
+							<object class="spacer">
+								<option>1</option>
+								<flag>wxEXPAND</flag>
+								<border>5</border>
+								<size>0,0</size>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxStaticText" name="lblServerPort">
+									<label>Server Port:</label>
+									<wrap>-1</wrap>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxSpinCtrl" name="spinCtrlServerPort">
+									<style>wxSP_ARROW_KEYS</style>
+									<value>0</value>
+									<min>0</min>
+									<max>65555</max>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxStaticBoxSizer">
+					<orient>wxVERTICAL</orient>
+					<label>Anonymous user</label>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxBoxSizer">
+							<orient>wxHORIZONTAL</orient>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxCheckBox" name="chkEnableAnonymous">
+									<label>Enable</label>
+									<checked>0</checked>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxCheckBox" name="chkReadOnlyAnonymous">
+									<label>Readonly</label>
+									<checked>0</checked>
+								</object>
+							</object>
+							<object class="spacer">
+								<option>1</option>
+								<flag></flag>
+								<border>5</border>
+								<size>0,0</size>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxStaticText" name="lblAnonymousFolder">
+									<label>Folder:</label>
+									<wrap>-1</wrap>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>1</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxDirPickerCtrl" name="dirPckrAnonymousRoot">
+									<value></value>
+									<message>Select a folder</message>
+									<style>wxDIRP_DEFAULT_STYLE|wxDIRP_DIR_MUST_EXIST|wxDIRP_SMALL</style>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>1</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxStaticBoxSizer">
+					<orient>wxVERTICAL</orient>
+					<label>Users</label>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxBoxSizer">
+							<orient>wxHORIZONTAL</orient>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxButton" name="btNewUser">
+									<label></label>
+									<default>0</default>
+									<markup>0</markup>
+									<bitmap stock_id="wxART_ADD_BOOKMARK" stock_client="wxART_BUTTON">undefined.png</bitmap>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxButton" name="btEditUser">
+									<label></label>
+									<default>0</default>
+									<markup>0</markup>
+									<bitmap stock_id="wxART_REPORT_VIEW" stock_client="wxART_BUTTON">undefined.png</bitmap>
+								</object>
+							</object>
+							<object class="sizeritem">
+								<option>0</option>
+								<flag>wxALL</flag>
+								<border>5</border>
+								<object class="wxButton" name="btDelUser">
+									<label></label>
+									<default>0</default>
+									<markup>0</markup>
+									<bitmap stock_id="wxART_DEL_BOOKMARK" stock_client="wxART_BUTTON">undefined.png</bitmap>
+								</object>
+							</object>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxScrolledWindow" name="m_scrolledWindow1">
+							<style>wxHSCROLL|wxVSCROLL</style>
+							<scrollrate>5,5</scrollrate>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL|wxEXPAND</flag>
+						<border>5</border>
+						<object class="wxListCtrl" name="listUsers">
+							<style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND|wxALIGN_CENTER_HORIZONTAL</flag>
+				<border>5</border>
+				<object class="wxBoxSizer">
+					<orient>wxHORIZONTAL</orient>
+					<object class="spacer">
+						<option>1</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<size>0,0</size>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="btCancel">
+							<label></label>
+							<default>0</default>
+							<markup>0</markup>
+							<bitmap stock_id="wxART_GO_BACK" stock_client="wxART_BUTTON">undefined.png</bitmap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="btSave">
+							<label></label>
+							<default>1</default>
+							<markup>0</markup>
+							<bitmap stock_id="wxART_FILE_SAVE" stock_client="wxART_BUTTON">undefined.png</bitmap>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+	</object>
+	<object class="wxDialog" name="frmEditUser">
+		<style>wxDEFAULT_DIALOG_STYLE</style>
+		<title></title>
+		<centered>1</centered>
+		<object class="wxStaticBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<label>User Account</label>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxBoxSizer">
+					<orient>wxHORIZONTAL</orient>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText" name="lblUsername">
+							<label>Username:</label>
+							<wrap>-1</wrap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxTextCtrl" name="txtUsername">
+							<value></value>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>0</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxBoxSizer">
+					<orient>wxHORIZONTAL</orient>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText" name="lblPassword">
+							<label>Password:</label>
+							<wrap>-1</wrap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxTextCtrl" name="txtPassword">
+							<value></value>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>1</option>
+				<flag>wxEXPAND</flag>
+				<border>5</border>
+				<object class="wxBoxSizer">
+					<orient>wxHORIZONTAL</orient>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxStaticText" name="lblRootFolder">
+							<label>Root Folder:</label>
+							<wrap>-1</wrap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>1</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxDirPickerCtrl" name="dirPickerRootFolder">
+							<value></value>
+							<message>Select a folder</message>
+							<style>wxDIRP_DEFAULT_STYLE|wxDIRP_DIR_MUST_EXIST</style>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxCheckBox" name="chkReadOnly">
+							<label>Read only</label>
+							<checked>0</checked>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="sizeritem">
+				<option>1</option>
+				<flag>wxEXPAND|wxALIGN_RIGHT</flag>
+				<border>5</border>
+				<object class="wxBoxSizer">
+					<orient>wxHORIZONTAL</orient>
+					<object class="spacer">
+						<option>1</option>
+						<flag>wxEXPAND</flag>
+						<border>5</border>
+						<size>0,0</size>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="btCancel">
+							<label></label>
+							<default>0</default>
+							<markup>0</markup>
+							<bitmap stock_id="wxART_CLOSE" stock_client="wxART_BUTTON">undefined.png</bitmap>
+						</object>
+					</object>
+					<object class="sizeritem">
+						<option>0</option>
+						<flag>wxALL</flag>
+						<border>5</border>
+						<object class="wxButton" name="btSave">
+							<label></label>
+							<default>0</default>
+							<markup>0</markup>
+							<bitmap stock_id="wxART_FILE_SAVE" stock_client="wxART_BUTTON">undefined.png</bitmap>
+						</object>
+					</object>
+				</object>
+			</object>
+		</object>
+	</object>
+</resource>
