@@ -14,7 +14,12 @@ exe1 = Executable(
     base = "Win32GUI",
 )
 
-
+exe2 = Executable(
+    script = "pobshare.py",
+    targetName = "pobshare_Console.exe",
+    icon = "icons"+os.sep+"pobshare.ico",
+    base = "Console",
+)
 
 setup(  name = "pobshare",
         version = "0.1",

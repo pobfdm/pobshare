@@ -1,5 +1,5 @@
 # Maintainer: Fabio Di Matteo <pobfdm@gmail.com>
-pkgname=pobkup
+pkgname=pobshare
 pkgver=0.1
 pkgrel=1
 epoch=
@@ -35,10 +35,10 @@ package() {
   mkdir -p "$pkgdir/usr/bin/"
   mkdir -p "$pkgdir/usr/lib/pobshare/"
   mkdir -p "$pkgdir/usr/share/applications"
-  cp "$srcdir/pobkup-master/pobshare/pobshare" "$pkgdir/usr/bin/"
-  cp -R "$srcdir/pobkup-master/icons/" "$pkgdir/usr/lib/pobshare/"
-  cp -R "$srcdir/pobkup-master/locale/" "$pkgdir/usr/lib/pobshare/"
-  cp -R "$srcdir/pobkup-master/gui/" "$pkgdir/usr/lib/pobshare/"
-  cp "$srcdir/pobkup-master/*.py" "$pkgdir/usr/lib/pobshare/"
-  cp "$srcdir/pobkup-master/*.desktop" "$pkgdir/usr/share/applications/"
+  cp "$srcdir/pobshare-master/pobshare" "$pkgdir/usr/bin/"
+  cp -R "$srcdir/pobshare-master/icons/" "$pkgdir/usr/lib/pobshare/"
+  cp -R "$srcdir/pobshare-master/locale/" "$pkgdir/usr/lib/pobshare/"
+  cp -R "$srcdir/pobshare-master/gui/" "$pkgdir/usr/lib/pobshare/"
+  cp "$srcdir/pobshare-master/"*.py "$pkgdir/usr/lib/pobshare/"
+  cp "$srcdir/pobshare-master/"*.desktop "$pkgdir/usr/share/applications/"
 }
