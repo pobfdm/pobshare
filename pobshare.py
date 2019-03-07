@@ -63,7 +63,7 @@ class PobShare(wx.App):
 	def init_frame(self):
 		
 		#Single instance
-		self.name = "Pobshare-%s" % wx.GetUserId()
+		self.name = getTempDir()+os.sep+"Pobshare-%s" % wx.GetUserId()
 		self.instance = wx.SingleInstanceChecker(self.name)
 		if self.instance.IsAnotherRunning():
 			wx.MessageBox(_("Another Pobshare instance is running"), "Error")
@@ -169,7 +169,7 @@ class PobShare(wx.App):
 		r= YesNo(self.mainFrame, _("Do you want exit?"), caption = 'Exit')
 		if (r==True):
 			try:
-				os.remove(getHomeDirPath()+os.sep+self.name)
+				os.remove(self.name)
 			except:
 				pass
 			self.Destroy()
