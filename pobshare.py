@@ -10,7 +10,7 @@ import threading
 
 TRAY_TOOLTIP = 'Pobshare help you to share a folder' 
 TRAY_ICON = os.path.join('icons','small','pobshare-gray.png')
-
+VERSION="0.1"
 
 def create_menu_item(menu, label, func):
     item = wx.MenuItem(menu, -1, label)
@@ -38,7 +38,6 @@ class TaskBarIcon(wx.adv.TaskBarIcon):
 		self.SetIcon(icon, TRAY_TOOLTIP)
 
 	def on_left_down(self, event):      
-		#print ('Tray icon was left-clicked.')
 		if (self.gui.mainFrame.IsShown()):
 			self.gui.mainFrame.Show(False)
 		else:
@@ -82,12 +81,13 @@ class PobShare(wx.App):
 		#Getting menu
 		self.menubar = self.mainFrame.GetMenuBar()
 		self.mnuItemExit = self.menubar.FindItemById(xrc.XRCID('mnuItemExit'))
-		self.mnuItemSettings = self.menubar.FindItemById(xrc.XRCID('mnuItemSettings'))    
+		self.mnuItemSettings = self.menubar.FindItemById(xrc.XRCID('mnuItemSettings'))
+		self.mnuItemAbout = self.menubar.FindItemById(xrc.XRCID('mnuItemAbout'))        
 		
 		#Bind event Menu
 		self.mainFrame.Bind(wx.EVT_MENU, self.quit, self.mnuItemExit)
 		self.mainFrame.Bind(wx.EVT_MENU, self.showSettings, self.mnuItemSettings)
-		
+		self.mainFrame.Bind(wx.EVT_MENU, self.onAbout, self.mnuItemAbout)
 		
 		#Bind Main Window event
 		self.mainFrame.Bind(wx.EVT_CLOSE, self.quit)
@@ -169,7 +169,18 @@ class PobShare(wx.App):
 		pobshareSettings= settingsGui.formSettings(self.mainFrame)
 		pobshareSettings.Show()
    
-
+	def onAbout(self, evt):
+		import wx.adv
+		aboutInfo = wx.adv.AboutDialogInfo()
+		aboutInfo.SetName("Pobshare")
+		aboutInfo.SetVersion(VERSION)
+		aboutInfo.SetIcon(wx.Icon('icons/small/pobshare-green.png', wx.BITMAP_TYPE_PNG))
+		aboutInfo.SetDescription(_("A simple gui for sharing folders"))
+		aboutInfo.SetCopyright("Released under GNU/GPL v3 License \n\n Author: Fabio Di Matteo - fadimatteo@gmail.com")
+		aboutInfo.SetWebSite("https://github.com/pobfdm/pobshare")
+		aboutInfo.AddDeveloper("Fabio Di Matteo - fadimatteo@gmail.com")
+		aboutInfo.AddArtist("http://www.iconarchive.com/show/rounded-social-media-icons-by-graphicloads/share-icon.html")
+		wx.adv.AboutBox(aboutInfo)
 
 
 class pobFileDropTarget(wx.FileDropTarget):

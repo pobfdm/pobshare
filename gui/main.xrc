@@ -20,6 +20,14 @@
 					<help></help>
 				</object>
 			</object>
+			<object class="wxMenu" name="mnuInfo">
+				<label>Info</label>
+				<object class="wxMenuItem" name="mnuItemAbout">
+					<label>About</label>
+					<help></help>
+					<bitmap stock_id="wxART_INFORMATION" stock_client="wxART_MENU">undefined.png</bitmap>
+				</object>
+			</object>
 		</object>
 		<object class="wxBoxSizer">
 			<orient>wxVERTICAL</orient>
