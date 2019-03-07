@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, os, configparser
+import sys, os, configparser, shutil
 
 def getTempDir():
 	import tempfile
@@ -117,12 +117,12 @@ def createWinShortcut(src, link, workingDir, icon):
 	
 def EnableAutorunAtLogin():
 	if  sys.platform == 'linux':
-		src="/usr/lib/pobshare/pobshare.desktop"
+		src="/usr/share/applications/pobshare.desktop"
 		dst=getAutorunFolder()+"pobshare.desktop"
 		try:
 			shutil.copyfile(src, dst)
-		except:
-			pass				
+		except Exception as e :
+			print(str(e))				
 	
 	
 	if  sys.platform == 'win32':
