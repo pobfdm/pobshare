@@ -65,6 +65,7 @@ class PobShare(wx.App):
 		# Main window
 		self.mainFrame = self.res.LoadFrame(None, 'mainFrame')
 		self.mainFrame.SetIcon(wx.Icon(os.path.join("icons","pobshare.ico")))
+		#self.mainFrame.SetSize(350,600)
 		self.trayIcon=TaskBarIcon(self)
 		
 		#Getting widgets
@@ -72,7 +73,8 @@ class PobShare(wx.App):
 		self.btStartStop.SetToolTip(_("Drag here the folder you want to share"))
 		self.statusBar=xrc.XRCCTRL(self.mainFrame, 'statusBar')
 		self.listCtrlStatus=xrc.XRCCTRL(self.mainFrame, 'listCtrlStatus')
-		self.listCtrlStatus.AppendColumn( 'Log',  width=350)
+		winSize=self.mainFrame.GetSize()
+		self.listCtrlStatus.AppendColumn( 'Log',  width=winSize.GetWidth())
 		self.txtUrl=xrc.XRCCTRL(self.mainFrame, 'txtUrl')
 		self.btShareUrl=xrc.XRCCTRL(self.mainFrame, 'btShareUrl')
 		self.btShareUrl.SetToolTip(_("Click to copy the url"))
@@ -85,6 +87,7 @@ class PobShare(wx.App):
 		#Bind event Menu
 		self.mainFrame.Bind(wx.EVT_MENU, self.quit, self.mnuItemExit)
 		self.mainFrame.Bind(wx.EVT_MENU, self.showSettings, self.mnuItemSettings)
+		
 		
 		#Bind Main Window event
 		self.mainFrame.Bind(wx.EVT_CLOSE, self.quit)

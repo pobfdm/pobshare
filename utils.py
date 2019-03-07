@@ -78,7 +78,7 @@ def initConfig():
 		config = configparser.ConfigParser()
 		config.add_section('general')
 		config['general']['enable_at_startup'] = 'False'
-		config['general']['run_server_at_start'] = 'True'
+		config['general']['run_server_at_start'] = 'False'
 		config['general']['ftp_port'] = '2121'
 		config.add_section('anonymous')
 		config['anonymous']['enable'] = 'True'

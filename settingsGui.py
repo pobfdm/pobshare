@@ -37,6 +37,7 @@ class formSettings():
 		self.dirPckrAnonymousRoot=xrc.XRCCTRL(self.frmSettings, 'dirPckrAnonymousRoot')
 		self.btCancel=xrc.XRCCTRL(self.frmSettings, 'btCancel')
 		self.btSave=xrc.XRCCTRL(self.frmSettings, 'btSave')
+		self.btResetConf=xrc.XRCCTRL(self.frmSettings, 'btResetConf')
 		
 		#Users button
 		self.btNewUser=xrc.XRCCTRL(self.frmSettings, 'btNewUser')
@@ -51,6 +52,8 @@ class formSettings():
 		self.btEditUser.Bind(wx.EVT_BUTTON, self.editUser)
 		self.btDelUser.Bind(wx.EVT_BUTTON, self.delUser)
 		self.listUsers.Bind(wx.EVT_LIST_ITEM_SELECTED,self.userSelected)
+		self.btResetConf.Bind(wx.EVT_BUTTON, self.resetConfiguration)
+		
 		
 		#init
 		self.listUsers.AppendColumn(_('Username'))
@@ -189,3 +192,12 @@ class formSettings():
 		except Exception as e :
 			Warn(self.frmSettings, _("Select a user!"), caption = 'Warning!')
 			print(str(e))
+
+	def resetConfiguration(self,evt):
+		q=YesNoWarning(self.frmSettings, _("Do you want delete all preferences?"), caption = 'Yes or no?')
+		if q==True:
+			initConfig()
+			os.remove(getConfUsersFilePath())
+			self.frmSettings.Close()
+			
+		
