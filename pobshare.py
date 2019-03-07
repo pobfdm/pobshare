@@ -168,6 +168,10 @@ class PobShare(wx.App):
 	def quit(self, evt):
 		r= YesNo(self.mainFrame, _("Do you want exit?"), caption = 'Exit')
 		if (r==True):
+			try:
+				os.remove(getHomeDirPath()+os.sep+self.name)
+			except:
+				pass
 			self.Destroy()
 			sys.exit()
 		
