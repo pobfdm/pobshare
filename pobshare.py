@@ -61,10 +61,17 @@ class PobShare(wx.App):
 		return True
 	
 	def init_frame(self):
+		
+		#Single instance
+		self.name = "Pobshare-%s" % wx.GetUserId()
+		self.instance = wx.SingleInstanceChecker(self.name)
+		if self.instance.IsAnotherRunning():
+			wx.MessageBox(_("Another Pobshare instance is running"), "ERROR")
+			return False
+		
 		# Main window
 		self.mainFrame = self.res.LoadFrame(None, 'mainFrame')
 		self.mainFrame.SetIcon(wx.Icon(os.path.join("icons","pobshare.ico")))
-		#self.mainFrame.SetSize(350,600)
 		self.trayIcon=TaskBarIcon(self)
 		
 		#Getting widgets
