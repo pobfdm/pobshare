@@ -174,7 +174,7 @@ class formSettings():
 		winUser.Show()
 	
 	def delUser(self, evt):
-		q=YesNo(self.frmSettings, _("Do you want remove this user?"), caption = 'Yes or no?')
+		q=YesNo(self.frmSettings, _("Do you want remove this user?"), caption = _('Yes or no?'))
 		if q==True:
 			self.configUsers.remove_section(self.userSelected)
 			with open(getConfUsersFilePath(), 'w') as configfile:
@@ -194,10 +194,13 @@ class formSettings():
 			print(str(e))
 
 	def resetConfiguration(self,evt):
-		q=YesNoWarning(self.frmSettings, _("Do you want delete all preferences?"), caption = 'Yes or no?')
+		q=YesNoWarning(self.frmSettings, _("Do you want delete all preferences?"), caption = _('Yes or no?'))
 		if q==True:
-			initConfig()
-			os.remove(getConfUsersFilePath())
-			self.frmSettings.Close()
-			
+			try:
+				if(os.path.isfile(getConfGeneralFilePath())): os.remove(getConfGeneralFilePath())
+				initConfig()
+				if (os.path.isfile(getConfUsersFilePath())): os.remove(getConfUsersFilePath())
+				self.frmSettings.Close()
+			except Exception as e:
+				Warn(self.frmSettings, str(e), _("Warning!"))
 		

@@ -1,0 +1,10 @@
+[Desktop Entry] 
+Type=Application
+Name=Pobshare
+GenericName=Pobshare 
+Comment=A simple gui for share files. 
+Exec=pobshare
+Icon=/usr/lib/pobkup/icons/pobshare-green.png
+Terminal=FALSE
+StartupNotify=TRUE
+Categories=Utility;Network;

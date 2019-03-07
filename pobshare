@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+
+import os
+
+if (not os.path.isfile("pobshare.py") ):
+	os.chdir("/usr/lib/pobshare/")
+	os.system("python3 pobshare.py")
+else:
+	os.system("python3 pobshare.py")

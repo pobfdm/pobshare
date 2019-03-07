@@ -12,7 +12,7 @@ def getLocalIp():
 	ip= s.getsockname()[0]
 	s.close()
 	return ip
-
+'''
 def getPublicIp():
 	import requests
 	fip=getTempDir()+"publicip.txt"
@@ -24,7 +24,7 @@ def getPublicIp():
 	prefs = configparser.ConfigParser()
 	prefs.read(fip)
 	return prefs['Connessione']['IP']
-
+'''
 
 def pingTCP(host, port):	
 	import socket
