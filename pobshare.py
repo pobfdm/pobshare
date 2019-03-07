@@ -66,7 +66,7 @@ class PobShare(wx.App):
 		self.name = "Pobshare-%s" % wx.GetUserId()
 		self.instance = wx.SingleInstanceChecker(self.name)
 		if self.instance.IsAnotherRunning():
-			wx.MessageBox(_("Another Pobshare instance is running"), "ERROR")
+			wx.MessageBox(_("Another Pobshare instance is running"), "Error")
 			return False
 		
 		# Main window
