@@ -69,11 +69,13 @@ class PobShare(wx.App):
 		
 		#Getting widgets
 		self.btStartStop=xrc.XRCCTRL(self.mainFrame, 'btStartStop')
+		self.btStartStop.SetToolTip(_("Drag here the folder you want to share"))
 		self.statusBar=xrc.XRCCTRL(self.mainFrame, 'statusBar')
 		self.listCtrlStatus=xrc.XRCCTRL(self.mainFrame, 'listCtrlStatus')
 		self.listCtrlStatus.AppendColumn( 'Log',  width=350)
 		self.txtUrl=xrc.XRCCTRL(self.mainFrame, 'txtUrl')
 		self.btShareUrl=xrc.XRCCTRL(self.mainFrame, 'btShareUrl')
+		self.btShareUrl.SetToolTip(_("Click to copy the url"))
 		
 		#Getting menu
 		self.menubar = self.mainFrame.GetMenuBar()
@@ -100,7 +102,11 @@ class PobShare(wx.App):
 			self.mainFrame.Show(False)
 			self.threadFTPserver = threading.Thread(target=self.startStopServer, args=())
 			self.threadFTPserver.daemon = True
-			self.threadFTPserver.start()	
+			self.threadFTPserver.start()
+		
+		#Drag and drop
+		file_drop_target = pobFileDropTarget(self)
+		self.btStartStop.SetDropTarget(file_drop_target)		
 	
 	def copyUrl(self, evt):
 		text = self.txtUrl.FindFocus()
@@ -160,7 +166,43 @@ class PobShare(wx.App):
 		pobshareSettings= settingsGui.formSettings(self.mainFrame)
 		pobshareSettings.Show()
    
- 
+
+
+
+class pobFileDropTarget(wx.FileDropTarget):
+
+	def __init__(self, gui):
+		wx.FileDropTarget.__init__(self)
+		self.gui=gui
+
+	def OnDropFiles(self, x, y, filenames):
+		if (os.path.isdir(filenames[0])):
+			print (filenames)
+			if hasattr(self.gui, 'ftpServer'):
+				if self.gui.ftpServer.started==False:
+					self.saveAndRun(filenames[0])
+				else:
+					Warn(self.gui.mainFrame, _("A server is already started. First stop it."), caption = 'Warning!')	
+			else:
+				self.saveAndRun(filenames[0])
+			return True
+		else:
+			print(_("Not a valid folder!"))
+			return False
+	
+	def initConfig(self):
+		self.config = configparser.ConfigParser()
+		self.config.read(getConfGeneralFilePath())
+	
+	def saveAndRun(self, root_folder):
+		self.initConfig()
+		self.config['anonymous']['enable']='True'
+		self.config['anonymous']['root_folder']=root_folder
+		with open(getConfGeneralFilePath(), 'w') as configfile:
+			self.config.write(configfile)
+		self.gui.threadFTPserver = threading.Thread(target=self.gui.startStopServer, args=())
+		self.gui.threadFTPserver.daemon = True
+		self.gui.threadFTPserver.start()
  
 if __name__ == '__main__':
 	#Gettex

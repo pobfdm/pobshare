@@ -36,18 +36,19 @@ class NotifyHandler(FTPHandler):
 
 	def on_file_sent(self, file):
 		# do something when a file has been sent
-		pass
+		self.appendOutput('('+getDatetime()+') '+_("File %s has has been sent." % str(file)))
 
 	def on_file_received(self, file):
 		# do something when a file has been received
-		pass
+		self.appendOutput('('+getDatetime()+') '+_("File %s has has been received." % str(file)))
 
 	def on_incomplete_file_sent(self, file):
 		# do something when a file is partially sent
-		pass
+		self.appendOutput('('+getDatetime()+') '+_("File %s has has been **partially sent** ." % str(file)))
 
 	def on_incomplete_file_received(self, file):
 		# remove partially uploaded files
+		self.appendOutput('('+getDatetime()+') '+_("File %s has has been **partially received** ." % str(file)))
 		import os
 		os.remove(file)
 
@@ -131,7 +132,6 @@ class TFtpServer():
 		'''
 	def stop(self):
 		self.server.close_all()
-		#self.server.del_channel()
 		self.started=False
 		wx.CallAfter(self.gui.serverNormal)
 		del self
