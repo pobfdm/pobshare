@@ -63,7 +63,7 @@ class PobShare(wx.App):
 	def init_frame(self):
 		
 		#Single instance
-		self.name = getTempDir()+os.sep+"Pobshare-%s" % wx.GetUserId()
+		self.name = ".Pobshare-%s" % wx.GetUserId()
 		self.instance = wx.SingleInstanceChecker(self.name)
 		if self.instance.IsAnotherRunning():
 			wx.MessageBox(_("Another Pobshare instance is running"), "Error")

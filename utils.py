@@ -172,4 +172,4 @@ def DisableAutorunAtLogin():
 		else:	
 			return False
 
-#print(getAutorunFolder())
+#print(getTempDir())
