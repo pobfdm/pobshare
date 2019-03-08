@@ -1,0 +1,12 @@
+./pobshare
+./editUser.py
+./freeze.py
+./ftpServer.py
+./guiUtils.py
+./pobshare.py
+./settingsGui.py
+./utils.py
+./pobshare.desktop
+./locale/
+./icons/
+./gui/

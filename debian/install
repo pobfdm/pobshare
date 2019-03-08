@@ -1,0 +1,6 @@
+pobshare /usr/bin/
+*.py /usr/lib/pobshare
+pobshare.desktop /usr/share/applications/
+locale/ /usr/lib/pobshare
+icons/ /usr/lib/pobshare
+gui/ /usr/lib/pobshare

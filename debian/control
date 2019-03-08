@@ -1,0 +1,14 @@
+Source: pobshare
+Section: utility
+Priority: optional
+Maintainer: Fabio Di Matteo <pobfdm@gmail.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.1.2
+Homepage: https://github.com/pobfdm/pobshare
+#Vcs-Git: https://github.com/pobfdm/pobshare.git
+#Vcs-Browser: https://github.com/pobfdm/pobshare.git
+
+Package: pobshare
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3 , python3-wxgtk4.0, python3-pyftpdlib
+Description: A simple gui for sharing folders
