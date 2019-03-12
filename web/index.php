@@ -15,6 +15,7 @@
 	<script src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/local.css">
+	<link rel="shortcut icon" type="image/png" href="imgs/favicon.png"/>
 	<script src="js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -31,7 +32,9 @@
       <a class="nav-item nav-link" href="index.php?page=screenshots">Screenshots</a>
       <a class="nav-item nav-link" href="index.php?page=downloads">Downloads</a>
       <a class="nav-item nav-link" href="index.php?page=license">License</a>
+      <a class="nav-item nav-link" href="index.php?page=authors">Authors</a>
       <a class="nav-item nav-link" href="index.php?page=documentation">Documentation</a>
+      <a class="nav-item nav-link" href="https://github.com/pobfdm/pobshare/issues">Report a problem</a>
     </div>
   </div>
 </nav>
@@ -52,12 +55,15 @@
         break;
      case "documentation":
         include('pages/documentation.php');
-        break;    
+        break;
+     case "authors":
+        include('pages/authors.php');
+        break;       
     default:
         include('pages/home.php');
 }
+
 ?>
 
 </body>
-
 </html>

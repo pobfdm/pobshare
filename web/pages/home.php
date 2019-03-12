@@ -9,3 +9,4 @@
 </div>
 
 </div><!-- /home content-->
+<?php include('pages/footer.php'); ?>
