@@ -11,12 +11,15 @@
 	<title><?php echo $TITLE_PAGE?></title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<script src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/local.css">
 	<link rel="shortcut icon" type="image/png" href="imgs/favicon.png"/>
 	<script src="js/bootstrap.bundle.min.js"></script>
+	<!-- Prism-->
+	<link href="css/prism.css" rel="stylesheet" />
+	<script src="js/prism.js"></script>
 </head>
 
 <body>
@@ -34,7 +37,7 @@
       <a class="nav-item nav-link" href="index.php?page=license">License</a>
       <a class="nav-item nav-link" href="index.php?page=authors">Authors</a>
       <a class="nav-item nav-link" href="index.php?page=documentation">Documentation</a>
-      <a class="nav-item nav-link" href="https://github.com/pobfdm/pobshare/issues">Report a problem</a>
+      <a class="nav-item nav-link" href="https://github.com/pobfdm/pobshare/issues" target="_blank">Report a problem</a>
     </div>
   </div>
 </nav>

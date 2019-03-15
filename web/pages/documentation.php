@@ -14,7 +14,7 @@
 	 <div id="alert" class="alert alert-warning" role="alert" style="display: None">This video comes from YouTube.</div> 
     <h5 class="card-title">Pobshare at work</h5>
     <p class="card-text">In this video you will see how to use Pobshare to share files and folders. You will also see how to set the various security levels.</p>
-    <a href="https://www.youtube.com/watch?v=aK5AGP2MNqI" class="btn btn-success">Watch the video on Youtube</a>
+    <a href="https://www.youtube.com/watch?v=aK5AGP2MNqI" class="btn btn-success" target="_blank">Watch the video on Youtube</a>
   </div>
 </div>
 
