@@ -10,7 +10,7 @@ import threading
 
 TRAY_TOOLTIP = 'Pobshare help you to share a folder' 
 TRAY_ICON = os.path.join('icons','small','pobshare-gray.png')
-VERSION="0.1"
+VERSION="0.2"
 
 def create_menu_item(menu, label, func):
     item = wx.MenuItem(menu, -1, label)
@@ -154,7 +154,12 @@ class PobShare(wx.App):
 		greenSmall = wx.Bitmap(os.path.join('icons','small','pobshare-green.png'), wx.BITMAP_TYPE_ANY)
 		self.trayIcon.set_icon(greenSmall)
 		self.btStartStop.SetBitmap(greenSmall)
-		self.txtUrl.SetValue('ftp://%s:%s' % (getLocalIp(), self.prefs['general']['ftp_port']))
+		if (self.prefs['general']['enable_ftps']=='True'):
+			protocol='ftps://'
+		else :
+			protocol='ftp://'
+		self.txtUrl.SetValue('%s%s:%s' % (protocol ,getLocalIp(), self.prefs['general']['ftp_port']))
+		
 		self.statusBar.SetStatusText(_("Server started.")) 
 		self.mnuItemSettings.Enable(False)
 	

@@ -38,6 +38,8 @@ class formSettings():
 		self.btCancel=xrc.XRCCTRL(self.frmSettings, 'btCancel')
 		self.btSave=xrc.XRCCTRL(self.frmSettings, 'btSave')
 		self.btResetConf=xrc.XRCCTRL(self.frmSettings, 'btResetConf')
+		self.chkEnableFTPS=xrc.XRCCTRL(self.frmSettings, 'chkEnableFTPS')
+		self.filePickerCert=xrc.XRCCTRL(self.frmSettings,'filePickerCert')
 		
 		#Users button
 		self.btNewUser=xrc.XRCCTRL(self.frmSettings, 'btNewUser')
@@ -53,6 +55,7 @@ class formSettings():
 		self.btDelUser.Bind(wx.EVT_BUTTON, self.delUser)
 		self.listUsers.Bind(wx.EVT_LIST_ITEM_SELECTED,self.userSelected)
 		self.btResetConf.Bind(wx.EVT_BUTTON, self.resetConfiguration)
+		self.chkEnableFTPS.Bind(wx.EVT_CHECKBOX, self.onCheckEnableFTPS)
 		
 		
 		#init
@@ -70,7 +73,11 @@ class formSettings():
 			self.loadUsers()
 	
 	
-			
+	def onCheckEnableFTPS(self, evt):
+		if (self.chkEnableFTPS.GetValue()==True):
+			self.filePickerCert.Enable(True)
+		else:
+			self.filePickerCert.Enable(False)			
 	
 	def initConfig(self):
 		self.config = configparser.ConfigParser()
@@ -89,7 +96,16 @@ class formSettings():
 			self.chkRunServerAtStart.SetValue(False)
 		
 		if (self.config['general']['ftp_port']!=''):
-			self.spinCtrlServerPort.SetValue(self.config['general']['ftp_port'])	
+			self.spinCtrlServerPort.SetValue(self.config['general']['ftp_port'])
+		
+		if (self.config['general']['enable_ftps']=='True'):	
+			self.chkEnableFTPS.SetValue(True)
+			self.filePickerCert.Enable(True)
+		else:
+			self.filePickerCert.Enable(False)		
+		
+		if (os.path.isfile(self.config['general']['ssl_cert'])):
+			self.filePickerCert.SetPath(self.config['general']['ssl_cert'])
 		
 		if (self.config['anonymous']['enable']=='True'):
 			self.chkEnableAnonymous.SetValue(True)
@@ -144,6 +160,18 @@ class formSettings():
 		
 		if(self.spinCtrlServerPort.GetValue()>10):
 			self.config['general']['ftp_port']=	str(self.spinCtrlServerPort.GetValue())
+		
+		if(self.chkEnableFTPS.GetValue()==True):
+			self.config['general']['enable_ftps']='True'
+		else:
+			self.config['general']['enable_ftps']='False'
+		
+		if (os.path.isfile(self.filePickerCert.GetPath())):
+			if (checkCert(self.filePickerCert.GetPath())!=True):
+				Warn(self.frmSettings, _("the certificate file is invalid"), caption = 'Warning!')
+				return
+			
+			self.config['general']['ssl_cert']=self.filePickerCert.GetPath()
 		
 		if(self.chkEnableAnonymous.GetValue()==True):
 			self.config['anonymous']['enable']='True'
