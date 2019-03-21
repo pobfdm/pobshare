@@ -85,42 +85,51 @@ class formSettings():
 	
 	def loadConfig(self):
 		self.initConfig()
-		if (self.config['general']['enable_at_startup']=='True'):
-			self.chkEnableAtStartup.SetValue(True)
-		else:
-			self.chkEnableAtStartup.SetValue(False)	
+		try:
+			if (self.config['general']['enable_at_startup']=='True'):
+				self.chkEnableAtStartup.SetValue(True)
+			else:
+				self.chkEnableAtStartup.SetValue(False)	
+			
+			if (self.config['general']['run_server_at_start']=='True'):
+				self.chkRunServerAtStart.SetValue(True)
+			else:
+				self.chkRunServerAtStart.SetValue(False)
+			
+			if (self.config['general']['ftp_port']!=''):
+				self.spinCtrlServerPort.SetValue(self.config['general']['ftp_port'])
+			
+			if (self.config['general']['enable_ftps']=='True'):	
+				self.chkEnableFTPS.SetValue(True)
+				self.filePickerCert.Enable(True)
+			else:
+				self.filePickerCert.Enable(False)		
+			
+			if (os.path.isfile(self.config['general']['ssl_cert'])):
+				self.filePickerCert.SetPath(self.config['general']['ssl_cert'])
+			
+			if (self.config['anonymous']['enable']=='True'):
+				self.chkEnableAnonymous.SetValue(True)
+			else:
+				self.chkEnableAnonymous.SetValue(False)	
+			
+			if (self.config['anonymous']['readonly']=='True'):
+				self.chkReadOnlyAnonymous.SetValue(True)
+			else:
+				self.chkReadOnlyAnonymous.SetValue(False)				
 		
-		if (self.config['general']['run_server_at_start']=='True'):
-			self.chkRunServerAtStart.SetValue(True)
-		else:
-			self.chkRunServerAtStart.SetValue(False)
-		
-		if (self.config['general']['ftp_port']!=''):
-			self.spinCtrlServerPort.SetValue(self.config['general']['ftp_port'])
-		
-		if (self.config['general']['enable_ftps']=='True'):	
-			self.chkEnableFTPS.SetValue(True)
-			self.filePickerCert.Enable(True)
-		else:
-			self.filePickerCert.Enable(False)		
-		
-		if (os.path.isfile(self.config['general']['ssl_cert'])):
-			self.filePickerCert.SetPath(self.config['general']['ssl_cert'])
-		
-		if (self.config['anonymous']['enable']=='True'):
-			self.chkEnableAnonymous.SetValue(True)
-		else:
-			self.chkEnableAnonymous.SetValue(False)	
-		
-		if (self.config['anonymous']['readonly']=='True'):
-			self.chkReadOnlyAnonymous.SetValue(True)
-		else:
-			self.chkReadOnlyAnonymous.SetValue(False)				
-	
-		if (self.config['anonymous']['root_folder']!=''):
-			self.dirPckrAnonymousRoot.SetPath(self.config['anonymous']['root_folder'])
-		
-	
+			if (self.config['anonymous']['root_folder']!=''):
+				self.dirPckrAnonymousRoot.SetPath(self.config['anonymous']['root_folder'])
+		except KeyError as e:
+			print("the key does not exist : %s" % e)
+			q=YesNo(self.frmSettings, _("Problems with the configuration file. Do you want to reset the configuration?"), caption = _('Yes or no?'))
+			if q==True:
+				if(os.path.isfile(getConfGeneralFilePath())): os.remove(getConfGeneralFilePath())
+				initConfig()
+				if (os.path.isfile(getConfUsersFilePath())): os.remove(getConfUsersFilePath())
+				self.frmSettings.Close()
+			else:
+				self.frmSettings.Close()
 	
 	def loadUsers(self):
 		try:

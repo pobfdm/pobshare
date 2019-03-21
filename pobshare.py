@@ -105,14 +105,17 @@ class PobShare(wx.App):
 		
 		#Access to general config
 		self.generalConfig()
-		
-		if (self.prefs['general']['run_server_at_start']=='False'):
+		try:
+			if (self.prefs['general']['run_server_at_start']=='False'):
+				self.mainFrame.Show(True)
+			else:
+				self.mainFrame.Show(False)
+				self.threadFTPserver = threading.Thread(target=self.startStopServer, args=())
+				self.threadFTPserver.daemon = True
+				self.threadFTPserver.start()
+		except KeyError:
 			self.mainFrame.Show(True)
-		else:
-			self.mainFrame.Show(False)
-			self.threadFTPserver = threading.Thread(target=self.startStopServer, args=())
-			self.threadFTPserver.daemon = True
-			self.threadFTPserver.start()
+			Warn(self.mainFrame, _('key error: run_server_at_start! A reset of the configuration is recommended!'), _('Warning'))
 		
 		#Drag and drop
 		file_drop_target = pobFileDropTarget(self)
