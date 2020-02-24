@@ -10,5 +10,5 @@ Homepage: https://github.com/pobfdm/pobshare
 
 Package: pobshare
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, python3 , python3-wxgtk4.0, python3-pyftpdlib
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3 , python3-wxgtk4.0, python3-pyftpdlib, python3-openssl
 Description: A simple gui for sharing folders
